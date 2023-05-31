@@ -15,19 +15,19 @@
             </a>
           </div>
 
-          <form class="m-t-30">
+          <form class="m-t-30" [formGroup]="form">
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
               >Email</mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput formControlName="username"/>
             </mat-form-field>
             <!-- password -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
               >Senha</mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
+              <input matInput type="password" formControlName="password"/>
             </mat-form-field>
 
             <div class="d-flex align-items-center m-b-12">
@@ -38,7 +38,7 @@
                 >Esqueceu a senha ?</a
               >
             </div>
-            <a [routerLink]="['/dashboard']" mat-flat-button color="primary" class="w-100">
+            <a mat-flat-button color="primary" class="w-100" (click)="login()">
               Entrar
             </a>
             <!-- input -->

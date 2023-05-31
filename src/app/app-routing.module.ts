@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 
@@ -15,8 +15,14 @@ export const routes: Routes = [
   { path: '**', redirectTo: '404' },
 ];
 
+const config: ExtraOptions = {
+  useHash: true,
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, config),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
