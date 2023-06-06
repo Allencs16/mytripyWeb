@@ -1,3 +1,5 @@
+import { SemanasService } from './services/semanas.service';
+import { Semanas } from './models/semanas.model';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./semanas.component.scss']
 })
 export class SemanasComponent {
+
+  constructor(
+    private semanasService: SemanasService
+  ){
+    this.semanasService.getWeeks().subscribe(response => {
+      console.log(response);
+    })
+  }
 
 }

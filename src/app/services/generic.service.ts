@@ -18,9 +18,9 @@ export abstract class GenericService<T> {
     this.api = this.controller;
   }
 
-  get(): Observable<T[]>{
+  get(loading?: Loading): Observable<T[]>{
     return this.getHttpClient().get<T[]>(`${this._api}`)
-    .pipe();
+    .pipe(this.configMapAndLoading());
   }
 
   // getWithParams(filter: T,): Observable<T[]> {
@@ -40,18 +40,18 @@ export abstract class GenericService<T> {
   save(entity: T, loading: Loading): Observable<T> {
     return this.getHttpClient()
       .post(`${this._api}`, entity)
-      .pipe(this.configMapAndLoading(loading));
+      .pipe(this.configMapAndLoading());
   }
 
   update(id: number, entity: T, loading: Loading): Observable<T> {
     this.startLoading(loading);
-    return this.getHttpClient().put(`${this._api}/${id}`, entity).pipe(this.configMapAndLoading(loading));
+    return this.getHttpClient().put(`${this._api}/${id}`, entity).pipe(this.configMapAndLoading());
   }
 
   delete(id: number, loading: Loading): Observable<void> {
     return this.getHttpClient()
       .delete(`${this._api}/${id}`)
-      .pipe(this.configMapAndLoading(loading));
+      .pipe(this.configMapAndLoading());
   }
 
   protected startLoading(loading: Loading): void {
@@ -64,15 +64,14 @@ export abstract class GenericService<T> {
     return loading.stopLoading ? finalize(() => loading.load = false) : pipe();
   }
 
-  protected configMapAndLoading(loading: Loading): UnaryFunction<Observable<any>, Observable<any>> {
+  protected configMapAndLoading(): UnaryFunction<Observable<any>, Observable<any>> {
     return pipe(
       configMap(),
-      this.stopLoading(loading)
     )
   }
 
   protected set api(controller: string) {
-    this._api = `${this._api}${controller}`;
+    this._api = `${this._api}/${controller}`;
   }
 
   protected get api(): string {
@@ -88,15 +87,6 @@ export abstract class GenericService<T> {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',
-    });
-  }
-
-  protected getHeadersCors(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Origin': '/',
-      'skip-error': 'true'
     });
   }
 

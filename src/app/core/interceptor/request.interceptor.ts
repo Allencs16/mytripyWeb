@@ -20,18 +20,17 @@ export class RequestInterceptor implements HttpInterceptor {
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<
-    | HttpSentEvent
-    | HttpHeaderResponse
-    | HttpProgressEvent
-    | HttpResponse<any>
-    | HttpUserEvent<any>
-  >{
+  ){
     const { authenticatioService } = this;
+    console.log(this.authenticatioService.token);
     if (Boolean(authenticatioService.token)) {
       req = req.clone({
-        headers: req.headers
-          .set('Authorization', `Bearer ${authenticatioService.token}`)
+        setHeaders: {
+          CacheControl: 'no-cache',
+          Pragma: 'no-cache',
+          Expires: 'Sat, 01 Jan 2000 00:00:00 GMT',
+          Authorization: `Bearer ${authenticatioService.token}`
+        }
       });
     }
     return next.handle(req);
