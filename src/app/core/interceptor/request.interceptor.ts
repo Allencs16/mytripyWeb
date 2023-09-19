@@ -22,7 +22,6 @@ export class RequestInterceptor implements HttpInterceptor {
     next: HttpHandler
   ){
     const { authenticatioService } = this;
-    console.log(this.authenticatioService.token);
     if (Boolean(authenticatioService.token)) {
       req = req.clone({
         setHeaders: {

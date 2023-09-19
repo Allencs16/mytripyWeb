@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions, ApexYAxis, ApexXAxis, ApexFill, ApexTooltip, ApexStroke, ApexLegend, ApexGrid, ApexMarkers, ChartComponent } from 'ng-apexcharts';
+import { UserService } from 'src/app/modules/public/pages/login/services/user.service';
 
 
 export interface salesOverviewChart {
@@ -29,10 +30,12 @@ export class DashboardComponent {
   public salesOverviewChart!: Partial<salesOverviewChart> | any;
 
   ngOnInit(): void {
-    
+    this.getUserData();
   }
   
-  constructor(){
+  constructor(
+    private userService: UserService,
+  ){
     this.salesOverviewChart = {
       series: [
         {
@@ -119,5 +122,11 @@ export class DashboardComponent {
         },
       ],
     };
+  }
+
+  getUserData(){
+    this.userService.getUserByEmail('brenoallencs@gmail.com').subscribe((response) => {
+      console.log(response);      
+    })
   }
 }

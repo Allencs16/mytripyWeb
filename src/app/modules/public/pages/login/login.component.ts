@@ -29,9 +29,6 @@ export class AppSideLoginComponent {
     this.authenticationService.authenticate(this.form.value).subscribe((response) => {
       sessionStorage.setItem("token", response.token);
       this.router.navigate(["/dashboard"]);
-      this.userService.getUserByEmail(this.form.get('username')?.value).subscribe((response) => {
-        console.log(response);
-      });
     });
   }
 
