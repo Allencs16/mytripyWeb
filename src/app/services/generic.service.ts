@@ -4,6 +4,7 @@ import { MonoTypeOperatorFunction, Observable, UnaryFunction, finalize, pipe } f
 import { environment } from 'src/environments/environments';
 import { Loading } from '../core/interfaces/loading.model';
 import { configMap } from '../core/utils/config-map';
+import { AddHttpParams } from '../core/utils/add-http-params';
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +19,18 @@ export abstract class GenericService<T> {
     this.api = this.controller;
   }
 
-  get(loading?: Loading): Observable<T[]>{
+  get(loading: Loading): Observable<T[]>{
     return this.getHttpClient().get<T[]>(`${this._api}`)
-    .pipe(this.configMapAndLoading());
+    .pipe(this.configMapAndLoading(loading));
   }
 
-  // getWithParams(filter: T,): Observable<T[]> {
-  //   const params = new AddHttpParams(filter).createParams();
+  getWithParams(filter: T,): Observable<T[]> {
+    const params = new AddHttpParams(filter).createParams();
 
-  //   return this.getHttpClient()
-  //     .get<T[]>(`${this._api}`, { params })
-  //     .pipe();
-  // }
+    return this.getHttpClient()
+      .get<T[]>(`${this._api}`, { params })
+      .pipe();
+  }
 
   getById(id: number): Observable<T> {
     return this.getHttpClient()
@@ -40,18 +41,18 @@ export abstract class GenericService<T> {
   save(entity: T, loading: Loading): Observable<T> {
     return this.getHttpClient()
       .post(`${this._api}`, entity)
-      .pipe(this.configMapAndLoading());
+      .pipe(this.configMapAndLoading(loading));
   }
 
   update(id: number, entity: T, loading: Loading): Observable<T> {
     this.startLoading(loading);
-    return this.getHttpClient().put(`${this._api}/${id}`, entity).pipe(this.configMapAndLoading());
+    return this.getHttpClient().put(`${this._api}/${id}`, entity).pipe(this.configMapAndLoading(loading));
   }
 
   delete(id: number, loading: Loading): Observable<void> {
     return this.getHttpClient()
       .delete(`${this._api}/${id}`)
-      .pipe(this.configMapAndLoading());
+      .pipe(this.configMapAndLoading(loading));
   }
 
   protected startLoading(loading: Loading): void {
@@ -64,9 +65,10 @@ export abstract class GenericService<T> {
     return loading.stopLoading ? finalize(() => loading.load = false) : pipe();
   }
 
-  protected configMapAndLoading(): UnaryFunction<Observable<any>, Observable<any>> {
+  protected configMapAndLoading(loading: Loading): UnaryFunction<Observable<any>, Observable<any>> {
     return pipe(
       configMap(),
+      this.stopLoading(loading)
     )
   }
 
