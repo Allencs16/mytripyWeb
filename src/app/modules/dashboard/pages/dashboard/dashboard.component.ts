@@ -1,3 +1,4 @@
+import { DashboardService } from './services/dashboard.service';
 import { Component, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions, ApexYAxis, ApexXAxis, ApexFill, ApexTooltip, ApexStroke, ApexLegend, ApexGrid, ApexMarkers, ChartComponent } from 'ng-apexcharts';
 import { UserService } from 'src/app/modules/public/pages/login/services/user.service';
@@ -35,6 +36,7 @@ export class DashboardComponent {
   
   constructor(
     private userService: UserService,
+    private dashboardService: DashboardService
   ){
     this.salesOverviewChart = {
       series: [
@@ -125,8 +127,8 @@ export class DashboardComponent {
   }
 
   getUserData(){
-    this.userService.getUserByEmail('brenoallencs@gmail.com').subscribe((response) => {
-      console.log(response);      
+    this.dashboardService.listUserInfo().subscribe((response) => {
+      console.log(response);
     })
   }
 }
