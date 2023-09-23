@@ -31,7 +31,7 @@ export class DashboardComponent {
   public salesOverviewChart!: Partial<salesOverviewChart> | any;
 
   ngOnInit(): void {
-    this.getUserData();
+
   }
   
   constructor(
@@ -124,11 +124,5 @@ export class DashboardComponent {
         },
       ],
     };
-  }
-
-  getUserData(){
-    this.dashboardService.listUserInfo().subscribe((response) => {
-      console.log(response);
-    })
   }
 }

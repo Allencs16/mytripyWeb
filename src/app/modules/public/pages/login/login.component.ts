@@ -27,6 +27,7 @@ export class AppSideLoginComponent {
 
   login(){
     this.authenticationService.authenticate(this.form.value).subscribe((response) => {
+      sessionStorage.setItem('userEmail', this.form.get('username')?.value);
       sessionStorage.setItem("token", response.token);
       this.router.navigate(["/dashboard"]);
     });
