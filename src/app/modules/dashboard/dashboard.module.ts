@@ -12,9 +12,9 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import * as TablerIcons from 'angular-tabler-icons/icons';
 import { AppDashboardComponent } from './pages/dashboardv1/dashboard.component';
-import { SemanasComponent } from './pages/semanas/semanas.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { ChartMonthExpensesComponent } from './pages/dashboard/components/chart-month-expenses/chart-month-expenses.component';
+import { SemanasComponent } from './pages/semanas/semanas.component';
+import { MaterialModule } from 'src/app/material.module';
 
 
 @NgModule({
@@ -29,13 +29,17 @@ import { ChartMonthExpensesComponent } from './pages/dashboard/components/chart-
     FormsModule,
     ReactiveFormsModule,
     TablerIconsModule.pick(TablerIcons),
-    NgApexchartsModule
+    NgApexchartsModule,
+    MaterialModule,
+    FormsModule,
   ],
   declarations: [
     DashboardComponent,
     AppDashboardComponent,
-    SemanasComponent,
-    ChartMonthExpensesComponent
+    SemanasComponent
   ],
+  exports: [
+    TablerIconsModule
+  ]
 })
 export class DashboardModule { }

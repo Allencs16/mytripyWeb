@@ -9,11 +9,15 @@ import { Component } from '@angular/core';
 })
 export class SemanasComponent {
 
+  dadosTabela: Semanas[] = [];
+
+  displayedColumns: string[] = ['Valor gasto total', 'KM total', 'Budget', 'Gastos', 'Data Inicio', 'Data Fim', 'Usuário'];
+
   constructor(
     private semanasService: SemanasService
   ){
     this.semanasService.getWeeks().subscribe(response => {
-      console.log(response);
+      this.dadosTabela.push(response);
     })
   }
 
