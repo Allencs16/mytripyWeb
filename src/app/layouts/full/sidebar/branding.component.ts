@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-branding',
   template: `
     <div class="branding">
-      <a href="/dashboard">
+      <a href="/#/dashboard">
         <img
           src="./assets/images/logos/logo2.svg"
           class="align-middle m-2"

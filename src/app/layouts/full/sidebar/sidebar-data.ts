@@ -17,4 +17,9 @@ export const navItems: NavItem[] = [
     iconName: 'Calendar',
     route: '/dashboard/semanas',
   },
+  {
+    displayName: 'Viagens',
+    iconName: 'Plane',
+    route: '/dashboard/viagens',
+  },
 ];
