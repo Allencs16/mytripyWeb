@@ -15,6 +15,7 @@ import { AppDashboardComponent } from './pages/dashboardv1/dashboard.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SemanasComponent } from './pages/semanas/semanas.component';
 import { MaterialModule } from 'src/app/material.module';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MaterialModule } from 'src/app/material.module';
     NgApexchartsModule,
     MaterialModule,
     FormsModule,
+    MatTableModule
   ],
   declarations: [
     DashboardComponent,

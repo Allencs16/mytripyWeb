@@ -1,6 +1,7 @@
 import { SemanasService } from './services/semanas.service';
 import { Semanas } from './models/semanas.model';
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-semanas',
@@ -11,14 +12,13 @@ export class SemanasComponent {
 
   dadosTabela: Semanas[] = [];
 
-  displayedColumns: string[] = ['Valor gasto total', 'KM total', 'Budget', 'Gastos', 'Data Inicio', 'Data Fim', 'Usuário'];
+  displayedColumns: string[] = ['ValorGastoTotal', 'totalKm', 'budget', 'expenses', 'startDate', 'endDate', 'user'];
 
   constructor(
     private semanasService: SemanasService
   ){
     this.semanasService.getWeeks().subscribe(response => {
-      this.dadosTabela.push(response);
-    })
+      this.dadosTabela = this.dadosTabela.concat(response);
+    });
   }
-
 }
