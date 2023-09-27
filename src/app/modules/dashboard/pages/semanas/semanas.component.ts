@@ -12,7 +12,7 @@ export class SemanasComponent {
 
   dadosTabela: Semanas[] = [];
 
-  displayedColumns: string[] = ['ValorGastoTotal', 'totalKm', 'budget', 'expenses', 'startDate', 'endDate', 'user'];
+  displayedColumns: string[] = ['ValorGastoTotal', 'totalKm', 'budget', 'expenses', 'startDate', 'endDate', 'user', 'current'];
 
   constructor(
     private semanasService: SemanasService
