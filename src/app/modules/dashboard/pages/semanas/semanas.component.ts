@@ -14,11 +14,21 @@ export class SemanasComponent {
 
   displayedColumns: string[] = ['ValorGastoTotal', 'totalKm', 'budget', 'expenses', 'startDate', 'endDate', 'user', 'current'];
 
+  mostrarSemanas = true;
+
   constructor(
     private semanasService: SemanasService
   ){
     this.semanasService.getWeeks().subscribe(response => {
       this.dadosTabela = this.dadosTabela.concat(response);
     });
+  }
+
+  mostrarCriarSemana(){
+    if (this.mostrarSemanas) {
+      this.mostrarSemanas = false;
+    } else {
+      this.mostrarSemanas = true;
+    }
   }
 }
