@@ -18,4 +18,9 @@ export class TripService extends GenericService<Trip>{
     return this.getHttpClient().get(`${this.api}`)
     .pipe(configMap())
   }
+
+  getTotalKm(loading?: Loading){
+    return this.getHttpClient().get(`${this.api}/totalKm`)
+    .pipe(configMap());
+  }
 }

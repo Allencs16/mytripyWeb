@@ -2,6 +2,8 @@ import { DashboardService } from './services/dashboard.service';
 import { Component, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions, ApexYAxis, ApexXAxis, ApexFill, ApexTooltip, ApexStroke, ApexLegend, ApexGrid, ApexMarkers, ChartComponent } from 'ng-apexcharts';
 import { UserService } from 'src/app/modules/public/pages/login/services/user.service';
+import { TripService } from '../trip/services/trip.service';
+import { TripQuantitative } from './models/trip-quantitatives.model';
 
 
 export interface salesOverviewChart {
@@ -27,13 +29,20 @@ export interface salesOverviewChart {
 })
 export class DashboardComponent {
 
-  ngOnInit(): void {
+  quantitativesTrip: TripQuantitative;
 
+  ngOnInit(): void {
+    this.getKmTotalFromMonth();
   }
   
   constructor(
-    private userService: UserService,
-    private dashboardService: DashboardService
+    private tripService: TripService
   ){
+  }
+
+  getKmTotalFromMonth(){
+    this.tripService.getTotalKm().subscribe(totalKm => {
+      this.quantitativesTrip = totalKm;
+    })
   }
 }
