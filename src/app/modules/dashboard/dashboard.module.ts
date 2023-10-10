@@ -17,6 +17,7 @@ import { SemanasComponent } from './pages/semanas/semanas.component';
 import { MaterialModule } from 'src/app/material.module';
 import { MatTableModule } from '@angular/material/table';
 import { TripComponent } from './pages/trip/trip.component';
+import { UserConfigComponent } from './pages/user-config/user-config.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { TripComponent } from './pages/trip/trip.component';
     DashboardComponent,
     AppDashboardComponent,
     SemanasComponent,
-    TripComponent
+    TripComponent,
+    UserConfigComponent
   ],
   exports: [
     TablerIconsModule

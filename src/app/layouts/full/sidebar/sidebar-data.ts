@@ -22,4 +22,9 @@ export const navItems: NavItem[] = [
     iconName: 'Plane',
     route: '/dashboard/viagens',
   },
+  {
+    displayName: 'Config Usuário',
+    iconName: 'User',
+    route: '/dashboard/user-config',
+  },
 ];
