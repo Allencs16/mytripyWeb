@@ -21,4 +21,8 @@ export class UserService extends GenericService<User> {
     return this.getHttpClient().get<User>(`${this.api}/${email}`, {headers: this.getHeadersMulti()})
     .pipe(configMap())
   }
+
+  getUsers(){
+    return this.getHttpClient().get(`${this.api}`).pipe(configMap());
+  }
 }
