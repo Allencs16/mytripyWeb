@@ -11,7 +11,7 @@ export class TripComponent {
 
   listTrips: Trip[] = [];
 
-  displayedColumns: string[] = ['name', 'description', 'state', 'distanceFromSource', 'price', 'place', 'food', 'startDay', 'endDay'];
+  displayedColumns: string[] = ['name', 'description', 'state', 'distanceFromSource', 'place', 'startDay', 'endDay'];
 
   constructor(private tripService: TripService){
     this.tripService.getTrips().subscribe(trips => {
