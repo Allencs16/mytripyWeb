@@ -37,6 +37,7 @@ export class UserConfigComponent {
 
   listarUsuario(){
     this.userService.getUsers().subscribe(users => {
+      console.log(users);
       this.usuariosTabela = users;
       this.form.patchValue({
         userType: users.userType
@@ -47,15 +48,35 @@ export class UserConfigComponent {
   enableUser(user: User){
     this.usuariosTabela.forEach(userTabela => {
       if(userTabela.id == user.id){
-        if(userTabela.isActive == false){
-          userTabela.isActive = true;
-          user.userActive = true;
+        if(userTabela.active == false){
+          userTabela.active = true;
+          user.active = true;
           this.userConfigService.editUser(user).subscribe(user => {
             console.log(user);
           });
         }else{
-          userTabela.isActive = false;
-          user.userActive = false;
+          userTabela.active = false;
+          user.active = false;
+          this.userConfigService.editUser(user).subscribe(user => {
+            console.log(user);
+          });
+        }
+      }
+    })
+  }
+
+  changeType(user:User){
+    this.usuariosTabela.forEach(userTabela => {      
+      if(userTabela.id == user.id){
+        if(userTabela.userType == 'VIAJANTE'){
+          userTabela.userType = 'ORGANIZADOR';
+          user.userType = 'ORGANIZADOR';
+          this.userConfigService.editUser(user).subscribe(user => {
+            console.log(user);
+          });
+        }else{
+          userTabela.userType = 'VIAJANTE';
+          user.userType = 'VIAJANTE';
           this.userConfigService.editUser(user).subscribe(user => {
             console.log(user);
           });

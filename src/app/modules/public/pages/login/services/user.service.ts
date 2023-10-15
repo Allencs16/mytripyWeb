@@ -25,4 +25,9 @@ export class UserService extends GenericService<User> {
   getUsers(){
     return this.getHttpClient().get(`${this.api}`).pipe(configMap());
   }
+
+  getByUserTypeAndActive(userType: string){
+    return this.getHttpClient().get(`${this.api}/tipoUsuario/${userType}/ativo`)
+    .pipe(configMap());
+  }
 }

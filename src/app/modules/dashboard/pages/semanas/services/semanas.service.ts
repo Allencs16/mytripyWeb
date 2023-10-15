@@ -20,4 +20,14 @@ export class SemanasService extends GenericService<Semanas> {
     .pipe(configMap());
   }
 
+  getQuantitatives(loading?: Loading){
+    return this.getHttpClient().get(`${this.api}/quantitatives`)
+    .pipe(configMap());
+  }
+
+  createNewWeek(semana: Semanas){
+    return this.getHttpClient().post(`${this.api}`, semana)
+    .pipe(configMap());
+  }
+
 }

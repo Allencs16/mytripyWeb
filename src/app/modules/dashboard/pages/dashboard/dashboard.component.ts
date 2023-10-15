@@ -1,3 +1,4 @@
+import { SemanasService } from './../semanas/services/semanas.service';
 import { DashboardService } from './services/dashboard.service';
 import { Component, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions, ApexYAxis, ApexXAxis, ApexFill, ApexTooltip, ApexStroke, ApexLegend, ApexGrid, ApexMarkers, ChartComponent } from 'ng-apexcharts';
@@ -36,13 +37,14 @@ export class DashboardComponent {
   }
   
   constructor(
-    private tripService: TripService
+    private semanasService: SemanasService
   ){
   }
 
   getKmTotalFromMonth(){
-    this.tripService.getTotalKm().subscribe(totalKm => {
-      this.quantitativesTrip = totalKm;
+    this.semanasService.getQuantitatives()
+    .subscribe(quantitatives => {
+      this.quantitativesTrip = quantitatives;
     })
   }
 }

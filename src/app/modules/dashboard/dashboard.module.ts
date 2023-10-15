@@ -1,3 +1,4 @@
+import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +19,11 @@ import { MaterialModule } from 'src/app/material.module';
 import { MatTableModule } from '@angular/material/table';
 import { TripComponent } from './pages/trip/trip.component';
 import { UserConfigComponent } from './pages/user-config/user-config.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BudgetComponent } from './pages/budget/budget.component';
+import { VehicleComponent } from './pages/vehicle/vehicle.component';
 
 
 @NgModule({
@@ -35,14 +41,21 @@ import { UserConfigComponent } from './pages/user-config/user-config.component';
     NgApexchartsModule,
     MaterialModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule, 
+    MatInputModule,
+    MatDatepickerModule, 
+    MatNativeDateModule
   ],
   declarations: [
     DashboardComponent,
     AppDashboardComponent,
     SemanasComponent,
     TripComponent,
-    UserConfigComponent
+    UserConfigComponent,
+    ExpensesComponent,
+    BudgetComponent,
+    VehicleComponent
   ],
   exports: [
     TablerIconsModule

@@ -23,6 +23,24 @@ export const navItems: NavItem[] = [
     route: '/dashboard/viagens',
   },
   {
+    displayName: 'Budget',
+    iconName: 'cash',
+    route: '/dashboard/budget',
+  },
+  {
+    displayName: 'Gastos',
+    iconName: 'coin-off',
+    route: '/dashboard/expenses',
+  },
+  {
+    displayName: 'Veículos',
+    iconName: 'car',
+    route: '/dashboard/vehicles',
+  },
+  {
+    navCap: 'Configurações',
+  },
+  {
     displayName: 'Config Usuário',
     iconName: 'User',
     route: '/dashboard/user-config',

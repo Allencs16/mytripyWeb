@@ -58,9 +58,41 @@
                 <button mat-flat-button color="primary" (click)="mostrarCriarSemana()">Ver Semanas</button>
             </mat-card-header>
             <mat-card-content class="p-24">
-                <form>
-                    
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Data Inícial</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="startDate">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Data Final</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                              <mat-label>Viajante</mat-label>
+                              <mat-select formControlName="userId">
+                                <mat-option *ngFor="let user of usersTravelers" [value]="user.id">
+                                  {{user.name}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </form>
+                <div class="buttonDown">
+                    <button mat-flat-button color="primary" (click)="newWeek()">Nova Semana</button>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>

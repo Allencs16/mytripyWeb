@@ -1,7 +1,8 @@
 <div class="col-lg-12">
-  <mat-card class="cardWithShadow">
+  <mat-card class="cardWithShadow" *ngIf="!createTrip; else createTripCard">
       <mat-card-header class="headerCard">
           <mat-card-title>Proximas Viagens</mat-card-title>
+          <button mat-flat-button color="primary" class="shadow-none" (click)="showCardCreate(true)">Criar Viagens</button>
       </mat-card-header>
       <mat-card-content class="p-24">
           <div class="table-responsive m-t-16">
@@ -44,3 +45,109 @@
       </mat-card-content>
   </mat-card>
 </div>
+
+<ng-template #createTripCard>
+    <mat-card class="cardWithShadow">
+        <mat-card-header class="headerCard">
+            <mat-card-title>Criar Viagens</mat-card-title>
+            <button mat-flat-button color="primary" class="shadow-none" (click)="showCardCreate(false)">Ver Viagens</button>
+        </mat-card-header>
+        <mat-card-content class="p-24">
+            <form [formGroup]="form">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Nome</mat-label>
+                                <input matInput placeholder="Nome" formControlName="name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>descrição</mat-label>
+                                <input matInput placeholder="descrição" formControlName="description">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Estado</mat-label>
+                                <input matInput placeholder="Estado" formControlName="state">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Kilometros até</mat-label>
+                                <input matInput placeholder="Kilometros até" type="number" formControlName="distanceFromSource">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Data Inícial</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="startDay">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                                <mat-label>Data Final</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="endDay">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                              <mat-label>Viajante</mat-label>
+                              <mat-select formControlName="userId">
+                                <mat-option *ngFor="let user of usersForTrip" [value]="user.id">
+                                  {{user.name}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                              <mat-label>Semana</mat-label>
+                              <mat-select formControlName="weekId">
+                                <mat-option *ngFor="let week of weeksForForm" [value]="week.id">
+                                  {{week.startDate | date: 'd/M/y' }} até {{week.endDate | date: 'd/M/y'}} {{week.user}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field>
+                              <mat-label>Veículo</mat-label>
+                              <mat-select formControlName="vehicleId">
+                                <mat-option>
+                                    Veículo
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field>
+                              <mat-label>Hospedagem</mat-label>
+                              <mat-select formControlName="stayId">
+                                <mat-option>
+                                    Hospedagem
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="buttonDown">
+                <button mat-flat-button color="primary" (click)="createNewTrip()">Nova Viagem</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
