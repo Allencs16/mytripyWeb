@@ -1,9 +1,9 @@
+import { Trip, TripDTO } from './../models/trip.model';
 import { configMap } from 'src/app/core/utils/config-map';
 import { Loading } from './../../../../../core/interfaces/loading.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenericService } from 'src/app/services/generic.service';
-import { Trip } from 'src/app/shared/models/trip.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,11 @@ export class TripService extends GenericService<Trip>{
 
   getTotalKm(loading?: Loading){
     return this.getHttpClient().get(`${this.api}/totalKm`)
+    .pipe(configMap());
+  }
+
+  createTrip(trip: TripDTO, loading?: Loading){
+    return this.getHttpClient().post(`${this.api}`, trip)
     .pipe(configMap());
   }
 }

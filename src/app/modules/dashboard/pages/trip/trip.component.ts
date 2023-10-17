@@ -1,11 +1,14 @@
+import { TratarErrorService } from './../../../../core/services/tratar-error.service';
 import { SemanasService } from './../semanas/services/semanas.service';
 import { UserService } from 'src/app/modules/public/pages/login/services/user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Trip } from './models/trip.model';
 import { TripService } from './services/trip.service';
 import { Component } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { Semanas } from '../semanas/models/semanas.model';
+import { VehiclesService } from '../vehicle/services/vehicles.service';
+import { Vehicle } from '../vehicle/models/vehicle.model';
 
 @Component({
   selector: 'app-trip',
@@ -23,8 +26,8 @@ export class TripComponent {
   form: FormGroup;
 
   usersForTrip: User[] = [];
-
   weeksForForm: Semanas[] = [];
+  vehiclesForForm: Vehicle[] = [];
 
   ngOnInit(): void {
     this.getData();
@@ -34,7 +37,9 @@ export class TripComponent {
     private tripService: TripService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private semanasService: SemanasService
+    private semanasService: SemanasService,
+    private vehicleService: VehiclesService,
+    private tratarErrorService: TratarErrorService
   ){
     this.getTrips();
     this.buildForm();
@@ -60,25 +65,37 @@ export class TripComponent {
     .subscribe(weeks => {
       this.weeksForForm = this.weeksForForm.concat(weeks);
     })
+
+    this.vehicleService.getAllVehicles()
+    .subscribe(vehicles => {
+      this.vehiclesForForm = vehicles;
+    })
   }
 
   buildForm(){
     this.form = this.formBuilder.group({
-      name: [null],
-      description: [null],
-      state: [null],
-      distanceFromSource: [null],
-      place: [null],
-      startDay: [null],
-      endDay: [null],
-      userId: [null],
-      vehicleId: [null],
-      weekId: [null],
+      name: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      distanceFromSource: [null, [Validators.required]],
+      place: [null, [Validators.required]],
+      startDay: [null, [Validators.required]],
+      endDay: [null, [Validators.required]],
+      userId: [null, [Validators.required]],
+      vehicleId: [null, [Validators.required]],
+      weekId: [null, [Validators.required]],
       stayId: [null]
     });
   }
 
   createNewTrip(){
-    console.log(this.form.value);
+    this.form.patchValue({
+      place: this.form.get('name')
+    })
+    this.tripService.createTrip(this.form.value)
+    .subscribe(trip => {
+      console.log(trip);
+      this.tratarErrorService.avisoMensagemSalvo('Viagem Salva com sucesso.');
+    });
   }
 }

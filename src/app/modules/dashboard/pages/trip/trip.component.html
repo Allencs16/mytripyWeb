@@ -126,8 +126,8 @@
                             <mat-form-field>
                               <mat-label>Veículo</mat-label>
                               <mat-select formControlName="vehicleId">
-                                <mat-option>
-                                    Veículo
+                                <mat-option *ngFor="let vehicle of vehiclesForForm" [value]="vehicle.id">
+                                    {{vehicle.brand}} {{vehicle.name}}
                                 </mat-option>
                               </mat-select>
                             </mat-form-field>
