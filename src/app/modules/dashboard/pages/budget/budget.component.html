@@ -1,34 +1,81 @@
-<div class="col-lg-6">
-  <mat-card class="cardWithShadow">
-    <mat-card-content class="p-24">
-      <mat-card-title>Budgets Recentes</mat-card-title>
-
-      <div class="timeline m-t-24">
-        <div
-          class="timeline-item d-flex overflow-hidden"
-          *ngFor="let budget of budgetsForPath"
-        >
-          <div class="time text-right mat-subtitle-1 f-s-14">
-            {{ budget.dateOfBudget | date: 'dd/MM/yy'}}
-          </div>
-          <div class="point d-flex align-items-center">
-            <span class="timeline-badge border-primary m-y-8"></span>
-            <span class="timline-border d-block"></span>
-          </div>
-          <div class="desc">
-            <ng-template [ngIf]="budget.type">
-              <span class="mat-subtitle-1 f-s-14 lh-20">Budget {{
-                budget.type
-              }} Adicionado</span>
-            </ng-template>
-            <ng-template [ngIf]="budget.value">
-              <span class="mat-subtitle-1 f-s-14 lh-20 f-w-600 d-block">
-                R${{ budget.value }}
-              </span>
-            </ng-template>
+<div class="row">
+  <div class="col-lg-5">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <mat-card-title>Budgets Recentes</mat-card-title>
+  
+        <div class="timeline m-t-24">
+          <div
+            class="timeline-item d-flex overflow-hidden"
+            *ngFor="let budget of budgetsForPath"
+          >
+            <div class="time text-right mat-subtitle-1 f-s-14">
+              {{ budget.dateOfBudget | date: 'dd/MM/yy'}}
+            </div>
+            <div class="point d-flex align-items-center">
+              <span class="timeline-badge border-primary m-y-8"></span>
+              <span class="timline-border d-block"></span>
+            </div>
+            <div class="desc">
+              <ng-template [ngIf]="budget.type">
+                <span class="mat-subtitle-1 f-s-14 lh-20">Budget {{
+                  budget.type
+                }} Adicionado</span>
+              </ng-template>
+              <ng-template [ngIf]="budget.value">
+                <span class="mat-subtitle-1 f-s-14 lh-20 f-w-600 d-block">
+                  R${{ budget.value }}
+                </span>
+              </ng-template>
+            </div>
           </div>
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div class="col-lg-7">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Criar um Budget</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="p-24">
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="col-md-5">
+                  <mat-form-field>
+                    <mat-label>Tipo Budget</mat-label>
+                    <mat-select formControlName="type">
+                      <mat-option *ngFor="let type of typesBudget" [value]="type.id">
+                        {{type.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Valor</mat-label>
+                    <input matInput placeholder="Valor" type="number" formControlName="value">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Semana</mat-label>
+                    <mat-select formControlName="weekId">
+                      <mat-option *ngFor="let week of semanaForSelect" [value]="week.id">
+                        {{week.startDate}} até {{week.endDate}} {{week.user}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions align="start">
+            <button mat-flat-button color="primary" (click)="createBudget()">Criar Budget</button>
+        </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

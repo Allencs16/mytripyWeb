@@ -1,7 +1,7 @@
+import { Budget } from './../models/budget.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenericService } from 'src/app/services/generic.service';
-import { Budget } from '../models/budget.model';
 import { configMap } from 'src/app/core/utils/config-map';
 
 @Injectable({
@@ -17,6 +17,11 @@ export class BudgetService extends GenericService<Budget>{
 
   getBudgets(){
     return this.getHttpClient().get(`${this.api}`)
+    .pipe(configMap());
+  }
+
+  createBudget(budget: Budget){
+    return this.getHttpClient().post(`${this.api}`, budget)
     .pipe(configMap());
   }
 }
