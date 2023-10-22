@@ -90,7 +90,7 @@ export class TripComponent {
 
   createNewTrip(){
     this.form.patchValue({
-      place: this.form.get('name')
+      place: this.form.get('name')?.value
     })
     this.tripService.createTrip(this.form.value)
     .subscribe(trip => {

@@ -1,3 +1,90 @@
-<p>
-  expenses works!
-</p>
+<div class="row">
+  <div class="col-lg-5">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <mat-card-title>Gastos Recentes</mat-card-title>
+  
+        <div class="timeline m-t-24">
+          <div
+            class="timeline-item d-flex overflow-hidden"
+            *ngFor="let expense of expensesList"
+          >
+            <div class="time text-right mat-subtitle-1 f-s-14">
+              {{ expense.expenseDate | date: 'dd/MM/yy'}}
+            </div>
+            <div class="point d-flex align-items-center">
+              <span class="timeline-badge border-primary m-y-8"></span>
+              <span class="timline-border d-block"></span>
+            </div>
+            <div class="desc">
+              <ng-template [ngIf]="expense.type">
+                <span class="mat-subtitle-1 f-s-14 lh-20">Gasto {{
+                  expense.type
+                }}: </span>
+              </ng-template>
+              <ng-template [ngIf]="expense.value">
+                <span class="mat-subtitle-1 f-s-14 lh-20 f-w-600">
+                  R${{ expense.value }}
+                </span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-lg-7">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Criar Gasto</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="p-24">
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="col-md-5">
+                  <mat-form-field>
+                    <mat-label>Tipo Gasto</mat-label>
+                    <mat-select formControlName="type">
+                      <mat-option *ngFor="let type of typesExpenses" [value]="type.id">
+                        {{type.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Valor</mat-label>
+                    <input matInput placeholder="Valor" type="number" formControlName="value">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <mat-form-field>
+                    <mat-label>Semana</mat-label>
+                    <mat-select formControlName="weekId">
+                      <mat-option *ngFor="let week of semanasList" [value]="week.id">
+                        {{week.startDate}} até {{week.endDate}} {{week.user}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Data Gasto</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="expenseDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                </div>
+              </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions align="start">
+            <button mat-flat-button color="primary" (click)="createExpenses()" >Criar Gasto</button>
+        </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
