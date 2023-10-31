@@ -1,3 +1,5 @@
+import { Vehicle } from './models/vehicle.model';
+import { VehiclesService } from './services/vehicles.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleComponent implements OnInit {
 
-  constructor() { }
+  listVehicles: Vehicle[] = [];
+
+  displayedColumns: string[] = ['name', 'price', 'brand', 'kmAveragePerLiter', 'maxDistance'];
+
+  constructor(
+    private vehicleService: VehiclesService
+  ) { }
 
   ngOnInit() {
+    this.getAllVehicles();
+  }
+
+  getAllVehicles(){
+    this.vehicleService.getAllVehicles()
+    .subscribe(vehicles => {
+      this.listVehicles = vehicles;
+      console.log(this.listVehicles);
+    })
   }
 
 }
